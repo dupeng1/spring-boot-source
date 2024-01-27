@@ -80,7 +80,9 @@ import org.springframework.core.io.support.SpringFactoriesLoader;
 @Documented
 @Inherited
 @AutoConfigurationPackage //自动配置包
-@Import(AutoConfigurationImportSelector.class) //Spring底层注解@Import，给容器导入一个组件
+@Import(AutoConfigurationImportSelector.class)	//Spring底层注解@Import，给容器导入一个组件，导入的组件是AutoConfigurationImportSelector
+//spring中有很多以Enable开头的注解，其作用就是借助@Import来收集并注册特定场景相关的bean，并加载到IOC容器
+//借助@Import来收集所有符合自动配置条件的bean定义，并加载到IOC容器
 public @interface EnableAutoConfiguration {
 
 	String ENABLED_OVERRIDE_PROPERTY = "spring.boot.enableautoconfiguration";

@@ -52,7 +52,7 @@ import org.springframework.data.repository.Repository;
 @SpringBootConfiguration	//标明该类是配置类
 @EnableAutoConfiguration	//启动自动配置功能（自动配置：根据我们添加的jar包依赖，会自动将一些配置类的bean注册进IOC容器，我们可以需要的地方使用@autowired或者@resource等注解来使用它）
 @ComponentScan(excludeFilters = {@Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class),
-		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class)})
+		@Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class)})//注解扫描
 public @interface SpringBootApplication {
 
 	/**

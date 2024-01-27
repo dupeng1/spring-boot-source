@@ -40,21 +40,35 @@ import org.springframework.web.filter.CharacterEncodingFilter;
  * @author Brian Clozel
  * @since 2.0.0
  */
+//表示这是一个配置类，和以前编写的配置文件一样，也可以给容器中添加组件
 @Configuration(proxyBeanMethods = false)
+
+//启动指定类的ConfigurationProperties功能；将配置文件中对应的值和HttpEncodingPropertiesv绑定起来；
+//让HttpProperties这个类上面标注的注解@ConfigurationProperties生效，让一些前缀的配置保存到HttpProperties的变量中
 @EnableConfigurationProperties(HttpProperties.class)
+
+//spring底层@Conditional注解，根据不同的条件，如果满足指定的条件，整个配置类里面的配置就会生效
+//判断当前应用是否是web应用，如果是，当前配置类生效
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
+
+//判断当前项目有没有这个CharacterEncodingFilter：SpringMVC中进行乱码解决的过滤器
 @ConditionalOnClass(CharacterEncodingFilter.class)
+
+//判断配置文件中是否存在某个配置spring.http.encoding.enable，如果不存在，判断也是成立的
+//matchIfMissing=true表示即使我们配置文件中不配置spring.http.encoding.enable=true，也是默认生效的
 @ConditionalOnProperty(prefix = "spring.http.encoding", value = "enabled", matchIfMissing = true)
 public class HttpEncodingAutoConfiguration {
 
+	//它已经和SpringBoot配置文件中的值进行映射了
 	private final HttpProperties.Encoding properties;
 
+	//只有一个有参构造器的情况下，参数的值就会从容器中拿
 	public HttpEncodingAutoConfiguration(HttpProperties properties) {
 		this.properties = properties.getEncoding();
 	}
 
-	@Bean
-	@ConditionalOnMissingBean
+	@Bean	//给容器中添加一个组件，这个组件中的某些值需要从properties中获取
+	@ConditionalOnMissingBean	//判断容器中没有这个组件
 	public CharacterEncodingFilter characterEncodingFilter() {
 		CharacterEncodingFilter filter = new OrderedCharacterEncodingFilter();
 		filter.setEncoding(this.properties.getCharset().name());

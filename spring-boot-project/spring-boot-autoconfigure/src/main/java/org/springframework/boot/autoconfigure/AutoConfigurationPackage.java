@@ -38,6 +38,8 @@ import org.springframework.context.annotation.Import;
 @Documented
 @Inherited
 //spring的底层注解@Import，给容器导入一个组件，导入的组件是AutoConfigurationPackages.Registrar.class
+//注册一个bean，这个bean就是rg.springframework.boot.autoconfigure.AutoConfigurationPackages.BasePackages
+//它有一个参数，这个参数是使用了@AutoConfigurationPackage这个注解的类所在的包路径，以供之后使用
 @Import(AutoConfigurationPackages.Registrar.class)
 public @interface AutoConfigurationPackage {
 
