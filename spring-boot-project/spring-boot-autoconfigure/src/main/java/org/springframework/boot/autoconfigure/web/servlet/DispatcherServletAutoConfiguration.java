@@ -118,6 +118,7 @@ public class DispatcherServletAutoConfiguration {
 		@ConditionalOnBean(value = DispatcherServlet.class, name = DEFAULT_DISPATCHER_SERVLET_BEAN_NAME)
 		public DispatcherServletRegistrationBean dispatcherServletRegistration(DispatcherServlet dispatcherServlet,
 																			   WebMvcProperties webMvcProperties, ObjectProvider<MultipartConfigElement> multipartConfig) {
+			//DispatcherServlet注册Bean
 			DispatcherServletRegistrationBean registration = new DispatcherServletRegistrationBean(dispatcherServlet,
 					webMvcProperties.getServlet().getPath());
 			registration.setName(DEFAULT_DISPATCHER_SERVLET_BEAN_NAME);
