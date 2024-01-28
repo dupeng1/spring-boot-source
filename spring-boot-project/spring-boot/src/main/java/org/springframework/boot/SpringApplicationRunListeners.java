@@ -70,6 +70,7 @@ class SpringApplicationRunListeners {
 		}
 	}
 
+	//当ApplicationContext完成刷新，该方法被调用
 	void started(ConfigurableApplicationContext context) {
 		for (SpringApplicationRunListener listener : this.listeners) {
 			listener.started(context);
